@@ -1,5 +1,5 @@
 # process_management.py
-# Author: jai
+# Author: Shreya Aggarwal
 # Assignment: OS Lab - Process Creation and Management
 
 import os
@@ -8,12 +8,12 @@ import subprocess
 
 # ---------- Task 1: Process Creation ----------
 def task1_process_creation(n=3):
-    print("\n--- Task 1: Process Creation (by jai) ---")
+    print("\n--- Task 1: Process Creation (by Shreya) ---")
     children = []
     for i in range(n):
         pid = os.fork()
         if pid == 0:  # Child
-            print(f"[Child] PID={os.getpid()}, PPID={os.getppid()}, Message=Hello from jai’s child {i}")
+            print(f"[Child] PID={os.getpid()}, PPID={os.getppid()}, Message=Hello from Shreya’s child {i}")
             os._exit(0)
         else:
             children.append(pid)
@@ -23,11 +23,11 @@ def task1_process_creation(n=3):
 
 # ---------- Task 2: Command Execution ----------
 def task2_exec_commands(commands=["date", "ls", "ps"]):
-    print("\n--- Task 2: Command Execution using execvp/subprocess (by jai) ---")
+    print("\n--- Task 2: Command Execution using execvp/subprocess (by Shreya) ---")
     for cmd in commands:
         pid = os.fork()
         if pid == 0:  # Child
-            print(f"[Child] Executing command: {cmd} (by jai)")
+            print(f"[Child] Executing command: {cmd} (by Shreya)")
             os.execvp(cmd, [cmd])
         else:
             os.waitpid(pid, 0)
@@ -35,31 +35,31 @@ def task2_exec_commands(commands=["date", "ls", "ps"]):
 
 # ---------- Task 3: Zombie & Orphan ----------
 def task3_zombie_orphan():
-    print("\n--- Task 3: Zombie & Orphan Processes (by jai) ---")
+    print("\n--- Task 3: Zombie & Orphan Processes (by Shreya) ---")
 
     # Zombie
     pid = os.fork()
     if pid == 0:  # Child
-        print(f"[Zombie Child] PID={os.getpid()}, PPID={os.getppid()} - exiting immediately (jai)")
+        print(f"[Zombie Child] PID={os.getpid()}, PPID={os.getppid()} - exiting immediately (Shreya)")
         os._exit(0)
     else:
-        print(f"[Parent] Created zombie process with PID={pid}, not waiting (jai)")
+        print(f"[Parent] Created zombie process with PID={pid}, not waiting (Shreya)")
         time.sleep(5)  # Observe with: ps -el | grep defunct
 
     # Orphan
     pid = os.fork()
     if pid == 0:  # Child
         time.sleep(5)
-        print(f"[Orphan Child] PID={os.getpid()}, PPID={os.getppid()} (jai)")
+        print(f"[Orphan Child] PID={os.getpid()}, PPID={os.getppid()} (Shreya)")
         os._exit(0)
     else:
-        print(f"[Parent] Exiting before child finishes, making orphan (jai)")
+        print(f"[Parent] Exiting before child finishes, making orphan (Shreya)")
         os._exit(0)
 
 
 # ---------- Task 4: Inspect /proc ----------
 def task4_proc_inspection(pid):
-    print(f"\n--- Task 4: Inspecting /proc/{pid} (by jai) ---")
+    print(f"\n--- Task 4: Inspecting /proc/{pid} (by Shreya) ---")
     try:
         with open(f"/proc/{pid}/status") as f:
             status = f.read()
@@ -81,16 +81,16 @@ def cpu_task():
     total = 0
     for i in range(10**7):
         total += i
-    print(f"[Child {os.getpid()} by jai] Finished CPU task")
+    print(f"[Child {os.getpid()} by Shreya] Finished CPU task")
 
 
 def task5_prioritization():
-    print("\n--- Task 5: Process Prioritization with nice() (by jai) ---")
+    print("\n--- Task 5: Process Prioritization with nice() (by Shreya) ---")
     for i, priority in enumerate([0, 5, 10]):
         pid = os.fork()
         if pid == 0:  # Child
             os.nice(priority)
-            print(f"[Child] PID={os.getpid()}, Priority={priority} (jai)")
+            print(f"[Child] PID={os.getpid()}, Priority={priority} (Shreya)")
             cpu_task()
             os._exit(0)
     # Wait for all children
@@ -100,7 +100,7 @@ def task5_prioritization():
 
 # ---------- Main ----------
 if __name__ == "__main__":
-    print("========= OS Lab Assignment by jai =========")
+    print("========= OS Lab Assignment by Shreya =========")
 
     # Run tasks one by one (comment/uncomment as needed)
     task1_process_creation(3)
@@ -114,5 +114,5 @@ if __name__ == "__main__":
 
     task5_prioritization()
 
-    print("========= End of Assignment (jai) =========")
+    print("========= End of Assignment (Shreya) =========")
     
